@@ -1,0 +1,15 @@
+<h1>Your Race: {{ myRandomRace }}</h1>
+<p>Languages Spoken:</p>
+<ul>
+    <li *ngFor="let languages of languageList">{{ languages.name }}</li>
+</ul>
+
+<p>Your Ability Scores:</p>
+<ul>
+    <li *ngFor="let scores of myScores">{{ scores.id }}: {{ scores.score }}</li>
+</ul>
+
+<p>Your Ability Modifiers:</p>
+<ul>
+    <li *ngFor="let mods of abilityMods">{{ mods.id }}: {{ mods.score }}</li>
+</ul>

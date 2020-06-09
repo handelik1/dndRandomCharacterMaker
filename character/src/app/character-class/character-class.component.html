@@ -1,0 +1,16 @@
+<h1>Your Class: {{ myRandomClass }}</h1>
+<p *ngIf="data">Your Hit Die: {{ data.hit_die }}</p>
+<p>Choose {{ numberToChoose }} skill proficiences:</p>
+<ul>
+    <li *ngFor="let proficiency of proficiencyList">{{ proficiency.name }}</li>
+</ul>
+
+<p>Your equipment proficiences:</p>
+<ul>
+    <li *ngFor="let equipment of equipmentProficiences">{{ equipment.name }}</li>
+</ul>
+
+<p>Your saving throws:</p>
+<ul>
+    <li *ngFor="let savingThrow of savingThrows">{{ savingThrow.name }}</li>
+</ul>
