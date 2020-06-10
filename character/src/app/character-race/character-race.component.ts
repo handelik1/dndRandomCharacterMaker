@@ -34,6 +34,7 @@ export class CharacterRaceComponent implements OnInit {
   raceList = [];
   data;
   myScores = [];
+  yourAC;
   myRandomRace;
   results = 'results';
   name = 'name';
@@ -103,7 +104,13 @@ export class CharacterRaceComponent implements OnInit {
         }
       });
     });
-    return this.abilityMods;
+    this.yourAC = this.calculateAC(this.abilityMods);
+    return this.yourAC;
+  }
+  // Calculates AC from DEX in abilityMods.
+  calculateAC(abilityMods){
+    const calculatedAC = abilityMods[1][this.score] + 10;
+    return calculatedAC;
   }
 
   ngOnInit(): void {

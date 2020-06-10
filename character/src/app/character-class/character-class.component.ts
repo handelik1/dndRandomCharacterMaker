@@ -48,7 +48,7 @@ export class CharacterClassComponent implements OnInit {
     });
   }
 
-
+  // Gets random class.
   getRandomClass() {
     this.classService.getClasses().subscribe(classes => {
       this.classList = classes[this.results];
