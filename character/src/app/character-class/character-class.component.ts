@@ -31,6 +31,17 @@ export class CharacterClassComponent implements OnInit {
 
   constructor(private classService: ClassService, private classData: ClassDataService) { }
 
+  // Gets random class.
+  getRandomClass() {
+    this.classService.getClasses().subscribe(classes => {
+      this.classList = classes[this.results];
+      const randomNumber = Math.floor(Math.random() * this.classList.length);
+      this.myRandomClass = this.classList[randomNumber].name;
+      this.getClassData(this.myRandomClass);
+      return this.myRandomClass;
+    });
+  }
+
   // Gets data related to the random class choice.
   getClassData(theClass) {
     this.classData.getClassData(theClass.toLowerCase()).subscribe(classData => {
@@ -45,17 +56,6 @@ export class CharacterClassComponent implements OnInit {
       this.proficiencyList = this.proficiencyChoices[this.from];
       this.equipmentProficiences = this.data[this.proficiencies];
       this.savingThrows = this.data[this.mySavingThrows];
-    });
-  }
-
-  // Gets random class.
-  getRandomClass() {
-    this.classService.getClasses().subscribe(classes => {
-      this.classList = classes[this.results];
-      const randomNumber = Math.floor(Math.random() * this.classList.length);
-      this.myRandomClass = this.classList[randomNumber].name;
-      this.getClassData(this.myRandomClass);
-      return this.myRandomClass;
     });
   }
 
