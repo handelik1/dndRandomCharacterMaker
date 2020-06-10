@@ -49,6 +49,18 @@ export class CharacterRaceComponent implements OnInit {
 
   constructor(private raceService: RaceService, private raceData: RaceDataService) { }
 
+  // Gets random class.
+  getRandomRace() {
+    this.raceService.getRaces().subscribe(races => {
+      this.raceList = races[this.results];
+      const randomNumber = Math.floor(Math.random() * this.raceList.length);
+      this.myRandomRace = this.raceList[randomNumber];
+      this.myRandomRace = this.myRandomRace.name;
+      this.getRaceData(this.myRandomRace);
+      return this.myRandomRace;
+    });
+  }
+
   // Gets data related to the random race choice.
   getRaceData(theRace) {
     this.raceData.getRaceData(theRace.toLowerCase()).subscribe(raceData => {
@@ -59,17 +71,6 @@ export class CharacterRaceComponent implements OnInit {
       this.speed = this.data[this.speed];
       const adjustedScores = this.calculateRaceBonuses(this.abilityBonusList, this.abilityScores);
       this.myScores = adjustedScores;
-    });
-  }
-
-  getRandomRace() {
-    this.raceService.getRaces().subscribe(races => {
-      this.raceList = races[this.results];
-      const randomNumber = Math.floor(Math.random() * this.raceList.length);
-      this.myRandomRace = this.raceList[randomNumber];
-      this.myRandomRace = this.myRandomRace.name;
-      this.getRaceData(this.myRandomRace);
-      return this.myRandomRace;
     });
   }
 
