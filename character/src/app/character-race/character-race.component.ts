@@ -49,7 +49,7 @@ export class CharacterRaceComponent implements OnInit {
 
   constructor(private raceService: RaceService, private raceData: RaceDataService) { }
 
-  // Gets random class.
+  // Gets random race.
   getRandomRace() {
     this.raceService.getRaces().subscribe(races => {
       this.raceList = races[this.results];
