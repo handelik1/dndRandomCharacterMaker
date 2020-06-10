@@ -34,10 +34,11 @@ export class CharacterRaceComponent implements OnInit {
   raceList = [];
   data;
   myScores = [];
-  yourAC;
+  characterAC;
   myRandomRace;
   results = 'results';
   name = 'name';
+  speed = 'speed';
   id = 'id';
   score = 'score';
   bonus = 'bonus';
@@ -52,8 +53,10 @@ export class CharacterRaceComponent implements OnInit {
   getRaceData(theRace) {
     this.raceData.getRaceData(theRace.toLowerCase()).subscribe(raceData => {
       this.data = raceData;
+      console.log(this.data);
       this.abilityBonusList = this.data[this.abilityBonuses];
       this.languageList = this.data[this.languages];
+      this.speed = this.data[this.speed];
       const adjustedScores = this.calculateRaceBonuses(this.abilityBonusList, this.abilityScores);
       this.myScores = adjustedScores;
     });
@@ -104,8 +107,8 @@ export class CharacterRaceComponent implements OnInit {
         }
       });
     });
-    this.yourAC = this.calculateAC(this.abilityMods);
-    return this.yourAC;
+    this.characterAC = this.calculateAC(this.abilityMods);
+    return this.characterAC;
   }
   // Calculates AC from DEX in abilityMods.
   calculateAC(abilityMods){
