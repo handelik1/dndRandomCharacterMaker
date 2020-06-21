@@ -10,22 +10,20 @@ import { CharacterClassComponent } from './character-class/character-class.compo
 import { ClassService } from './character-class/class.service';
 import { ClassDataService } from './character-class/class-data.service';
 import { RaceDataService } from './character-race/race-data.service';
-import { CharacterNameComponent } from './character-name/character-name.component';
-import { NameService } from './character-name/name.service';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     CharacterRaceComponent,
     CharacterClassComponent,
-    CharacterNameComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
   ],
-  providers: [RaceService, ClassService, ClassDataService, RaceDataService, NameService],
+  providers: [RaceService, ClassService, ClassDataService, RaceDataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

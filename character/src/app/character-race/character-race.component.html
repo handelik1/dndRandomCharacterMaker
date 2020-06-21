@@ -1,6 +1,7 @@
-<h1>Your Race: {{ myRandomRace }}</h1>
+<h1>Name: {{ fullName }}</h1>
+<h2>Your Race: {{ myRandomRace }}</h2>
 <h2>Your AC: {{ characterAC }}</h2>
-<h2>Your Speed: {{ speed }}</h2>
+<h3>Your Speed: {{ speed }}</h3>
 <p>Languages Spoken:</p>
 <ul>
     <li *ngFor="let languages of languageList">{{ languages.name }}</li>

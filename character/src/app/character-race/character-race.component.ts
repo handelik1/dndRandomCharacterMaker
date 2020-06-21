@@ -1,7 +1,7 @@
 import { RaceDataService } from './race-data.service';
 import { RaceService } from './race.service';
 import { Component, OnInit } from '@angular/core';
-
+import * as data from '../../assets/names.json';
 
 @Component({
   selector: 'app-character-race',
@@ -30,16 +30,16 @@ export class CharacterRaceComponent implements OnInit {
   ];
 
   public abilites = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'];
-
+  public gender = ['male', 'female'];
   raceList = [];
   data;
   myScores = [];
+  fullName;
   characterAC;
   myRandomRace;
   abilityBonusList = [];
   languageList = [];
   speed;
-
   constructor(private raceService: RaceService, private raceData: RaceDataService) { }
 
   // Gets random race.
@@ -50,15 +50,32 @@ export class CharacterRaceComponent implements OnInit {
       this.myRandomRace = this.raceList[randomNumber];
       this.myRandomRace = this.myRandomRace.name;
       this.getRaceData(this.myRandomRace);
+      this.getRaceAndGender(this.myRandomRace);
       return this.myRandomRace;
     });
+  }
+
+// Gets the race and randomly generates the gender. Then passes them to the random name generator function.
+  getRaceAndGender(race) {
+    const random0Or1 = Math.round(Math.random());
+    const gender = this.gender[random0Or1];
+    this.getRandomName(race, gender);
+  }
+
+  getRandomName(race, gender) {
+    const theRace = race.toLowerCase();
+    const nameArray = (data as any).default;
+    console.log(nameArray[0][theRace]['firstname'][gender]);
+    const firstName = nameArray[0][theRace]['firstname'][gender][0];
+    const lastName = nameArray[0][theRace]['lastname'][0];
+    this.fullName = firstName + ' ' + lastName;
+    return this.fullName;
   }
 
   // Gets data related to the random race choice.
   getRaceData(theRace) {
     this.raceData.getRaceData(theRace.toLowerCase()).subscribe(raceData => {
       this.data = raceData;
-      console.log(this.data);
       this.abilityBonusList = this.data['ability_bonuses'];
       this.languageList = this.data['languages'];
       this.speed = this.data['speed'];
@@ -105,7 +122,7 @@ export class CharacterRaceComponent implements OnInit {
     return this.characterAC;
   }
   // Calculates AC from DEX in abilityMods.
-  calculateAC(abilityMods){
+  calculateAC(abilityMods) {
     const calculatedAC = abilityMods[1]['score'] + 10;
     return calculatedAC;
   }
