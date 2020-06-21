@@ -13,13 +13,6 @@ export class CharacterClassComponent implements OnInit {
   classList = [];
   classDataList = [];
   myRandomClass;
-  myProficiencyChoices = 'proficiency_choices';
-  results = 'results';
-  choose = 'choose';
-  from = 'from';
-  name = 'name';
-  proficiencies = 'proficiencies';
-  mySavingThrows = 'saving_throws';
   data;
   theClass = '';
   savingThrows = [];
@@ -34,7 +27,7 @@ export class CharacterClassComponent implements OnInit {
   // Gets random class.
   getRandomClass() {
     this.classService.getClasses().subscribe(classes => {
-      this.classList = classes[this.results];
+      this.classList = classes['results'];
       const randomNumber = Math.floor(Math.random() * this.classList.length);
       this.myRandomClass = this.classList[randomNumber].name;
       this.getClassData(this.myRandomClass);
@@ -46,16 +39,16 @@ export class CharacterClassComponent implements OnInit {
   getClassData(theClass) {
     this.classData.getClassData(theClass.toLowerCase()).subscribe(classData => {
       this.data = classData;
-      if (this.data[this.name] === 'Monk') {
-        this.proficiencyChoices = this.data[this.myProficiencyChoices][2];
+      if (this.data['name'] === 'Monk') {
+        this.proficiencyChoices = this.data['proficiency_choices'][2];
       }
       else {
-        this.proficiencyChoices = this.data[this.myProficiencyChoices][0];
+        this.proficiencyChoices = this.data['proficiency_choices'][0];
       }
-      this.numberToChoose = this.proficiencyChoices[this.choose];
-      this.proficiencyList = this.proficiencyChoices[this.from];
-      this.equipmentProficiences = this.data[this.proficiencies];
-      this.savingThrows = this.data[this.mySavingThrows];
+      this.numberToChoose = this.proficiencyChoices['choose'];
+      this.proficiencyList = this.proficiencyChoices['from'];
+      this.equipmentProficiences = this.data['proficiencies'];
+      this.savingThrows = this.data['saving_throws'];
     });
   }
 

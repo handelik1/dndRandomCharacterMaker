@@ -55,6 +55,7 @@
         ]
       }
     ],
+    "no-string-literal": false,
     "no-console": [
       true,
       "debug",

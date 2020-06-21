@@ -36,23 +36,16 @@ export class CharacterRaceComponent implements OnInit {
   myScores = [];
   characterAC;
   myRandomRace;
-  results = 'results';
-  name = 'name';
-  speed = 'speed';
-  id = 'id';
-  score = 'score';
-  bonus = 'bonus';
   abilityBonusList = [];
-  abilityBonuses = 'ability_bonuses';
   languageList = [];
-  languages = 'languages';
+  speed;
 
   constructor(private raceService: RaceService, private raceData: RaceDataService) { }
 
   // Gets random race.
   getRandomRace() {
     this.raceService.getRaces().subscribe(races => {
-      this.raceList = races[this.results];
+      this.raceList = races['results'];
       const randomNumber = Math.floor(Math.random() * this.raceList.length);
       this.myRandomRace = this.raceList[randomNumber];
       this.myRandomRace = this.myRandomRace.name;
@@ -66,9 +59,9 @@ export class CharacterRaceComponent implements OnInit {
     this.raceData.getRaceData(theRace.toLowerCase()).subscribe(raceData => {
       this.data = raceData;
       console.log(this.data);
-      this.abilityBonusList = this.data[this.abilityBonuses];
-      this.languageList = this.data[this.languages];
-      this.speed = this.data[this.speed];
+      this.abilityBonusList = this.data['ability_bonuses'];
+      this.languageList = this.data['languages'];
+      this.speed = this.data['speed'];
       const adjustedScores = this.calculateRaceBonuses(this.abilityBonusList, this.abilityScores);
       this.myScores = adjustedScores;
     });
@@ -78,8 +71,8 @@ export class CharacterRaceComponent implements OnInit {
   calculateRaceBonuses(abilityBonusList, abilityScores) {
     Object.entries(abilityBonusList).forEach(([key, value]) => {
       Object.entries(abilityScores).forEach(([key1, value1]) => {
-        if (value[this.name] === value1[this.id]) {
-          value1[this.score] += value[this.bonus];
+        if (value['name'] === value1['id']) {
+          value1['score'] += value['bonus'];
         }
       });
     });
@@ -92,7 +85,7 @@ export class CharacterRaceComponent implements OnInit {
     let calculatedAbilityScores = [];
     for (let i = 0; i < 27; i++) {
       const randomAbility = Math.floor(Math.random() * 6);
-      calculatedAbilityScores = abilityScores[randomAbility][this.score] += 1;
+      calculatedAbilityScores = abilityScores[randomAbility]['score'] += 1;
     }
     this.calculateAbilityMod(abilityScores);
   }
@@ -101,10 +94,10 @@ export class CharacterRaceComponent implements OnInit {
   calculateAbilityMod(abilityScores) {
     let modifier = 0;
     Object.entries(this.abilityScores).forEach(([key, abilityScoreValue]) => {
-      modifier = Math.floor((abilityScoreValue[this.score] - 10) / 2);
+      modifier = Math.floor((abilityScoreValue['score'] - 10) / 2);
       Object.entries(this.abilityMods).forEach(([key1, abilityModValue]) => {
-        if (abilityScoreValue[this.id] === abilityModValue[this.id]) {
-          abilityModValue[this.score] += modifier;
+        if (abilityScoreValue['id'] === abilityModValue['id']) {
+          abilityModValue['score'] += modifier;
         }
       });
     });
@@ -113,7 +106,7 @@ export class CharacterRaceComponent implements OnInit {
   }
   // Calculates AC from DEX in abilityMods.
   calculateAC(abilityMods){
-    const calculatedAC = abilityMods[1][this.score] + 10;
+    const calculatedAC = abilityMods[1]['score'] + 10;
     return calculatedAC;
   }
 
