@@ -62,6 +62,7 @@ export class CharacterRaceComponent implements OnInit {
     this.getRandomName(race, gender);
   }
 
+  // Gets random name based on race and gender.
   getRandomName(race, gender) {
     const theRace = race.toLowerCase();
     const nameArray = (data as any).default;
