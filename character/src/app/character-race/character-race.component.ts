@@ -65,9 +65,17 @@ export class CharacterRaceComponent implements OnInit {
   getRandomName(race, gender) {
     const theRace = race.toLowerCase();
     const nameArray = (data as any).default;
-    console.log(nameArray[0][theRace]['firstname'][gender]);
-    const firstName = nameArray[0][theRace]['firstname'][gender][0];
-    const lastName = nameArray[0][theRace]['lastname'][0];
+
+    const firstNameList = nameArray[0][theRace]['firstname'][gender];
+    const firstNameRandomNum = Math.floor(Math.random() * firstNameList.length);
+    console.log(firstNameRandomNum)
+    const firstName = firstNameList[firstNameRandomNum];
+
+    const lastNameList = nameArray[0][theRace]['lastname'];
+    const lastNameRandomNum = Math.floor(Math.random() * lastNameList.length);
+    console.log(lastNameRandomNum)
+    const lastName = lastNameList[lastNameRandomNum];
+
     this.fullName = firstName + ' ' + lastName;
     return this.fullName;
   }
